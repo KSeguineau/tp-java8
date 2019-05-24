@@ -14,6 +14,7 @@ import org.junit.Test;
 
 import java8.data.Data;
 import java8.data.domain.Customer;
+import java8.data.domain.Gender;
 import java8.data.domain.Order;
 import java8.data.domain.Pizza;
 
@@ -67,13 +68,13 @@ public class Stream_03_Test {
 
 		// TODO Construire la map Sexe -> Chaîne représentant les prénoms des
 		// clients
-		/*
-		 * Map<Gender, String> result =
-		 * customers.stream().sorted().collect(Collectors.groupingBy(c ->
-		 * c.getGender(), map(c -> c.getFirstname()).Collectors.joining("|")));
-		 */
 
-		// assertThat(result.get(Gender.F), is("Alexandra|Marion|Sophie"));
-		// (result.get(Gender.M), is("Cyril|Johnny"));
+		Map<Gender, String> result = customers.stream().sorted((a, b) -> a.getFirstname().compareTo(b.getFirstname()))
+				.collect(
+						Collectors.groupingBy(c -> c.getGender(),
+								Collectors.mapping(c -> c.getFirstname(), Collectors.joining("|"))));
+
+		assertThat(result.get(Gender.F), is("Alexandra|Marion|Sophie"));
+		assertThat(result.get(Gender.M), is("Cyril|Johnny"));
 	}
 }
