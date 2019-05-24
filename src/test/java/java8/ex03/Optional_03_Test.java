@@ -60,7 +60,7 @@ public class Optional_03_Test {
 		// TODO Utiliser la méthode orElseThrow pour déclencher l'exception
 		// GoodException si non trouvé
 		// accOpt.map...
-		Optional<String> prenom = accOpt.map(a -> a.getOwner().getFirstname());
+		Optional<String> prenom = accOpt.map(a -> a.getOwner()).map(c -> c.getFirstname());
 		prenom.orElseThrow(() -> new GoodException());
 	}
 
